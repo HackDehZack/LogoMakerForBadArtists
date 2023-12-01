@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const logoGenerator = require('./logoGenerator');
+const logoGenerator = require('./lib/logoGenerator');
 
 function promptUser() {
   return inquirer.prompt([
