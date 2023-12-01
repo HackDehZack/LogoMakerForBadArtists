@@ -1,52 +1,36 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+const logoGenerator = require('./logoGenerator');
 
-const logoGenerator = require('./lib/logoGenerator');
-
-// Prompt for user input using Inquirer
-inquirer
-  .prompt([
+function promptUser() {
+  return inquirer.prompt([
+    // Prompt for text input
     {
       type: 'input',
       name: 'text',
-      message: 'Enter up to three characters:',
-      validate: (input) => {
-        if (input.length > 3) {
-          return 'Please enter a maximum of three characters.';
-        }
-        return true;
-      },
+      message: 'Enter the text for your logo:',
     },
+    // Prompt for text color
     {
       type: 'input',
-      name: 'textColor',
-      message: 'Enter the text color (color keyword or hexadecimal number):',
+      name: 'color',
+      message: 'Enter the text color (e.g., red, blue, #FF0000):',
     },
+    // Prompt for shape choice
     {
       type: 'list',
       name: 'shape',
       message: 'Choose a shape:',
-      choices: ['circle', 'triangle', 'square'],
+      choices: ['Triangle', 'Circle', 'Square'],
     },
-    {
-      type: 'input',
-      name: 'shapeColor',
-      message: 'Enter the shape color (color keyword or hexadecimal number):',
-    },
-  ])
-  .then((answers) => {
-    // Process user input and generate the logo using the logoGenerator module
-    const logo = logoGenerator.generateLogo(answers);
+  ]);
+}
 
-    // Write the generated logo to an SVG file named `logo.svg`
-    fs.writeFile('logo.svg', logo, (err) => {
-      if (err) {
-        console.error('An error occurred while writing the logo file:', err);
-        return;
-      }
-      console.log('Generated logo.svg');
-    });
+promptUser()
+  .then((answers) => {
+    const logo = logoGenerator.generateLogo(answers);
+    logoGenerator.saveLogoToFile(logo);
   })
   .catch((error) => {
     console.error('An error occurred while prompting for user input:', error);
   });
+  
