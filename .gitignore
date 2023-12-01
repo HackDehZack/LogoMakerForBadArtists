@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+
+# Compiled output
+dist/
+build/
+
+# Log files
+*.log
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Compiled test files
+coverage/
+
+# Generated SVG files
+logo.svg
+
+# Other generated files
+.DS_Store
+Thumbs.db
