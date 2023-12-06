@@ -27,10 +27,9 @@ function promptUser() {
 
 promptUser()
   .then((answers) => {
-    const logo = logoGenerator.generateLogo(answers);
+    const logo = logoGenerator.generateLogo(answers.text, answers.color, answers.shape);
     logoGenerator.saveLogoToFile(logo);
   })
   .catch((error) => {
     console.error('An error occurred while prompting for user input:', error);
   });
-  
