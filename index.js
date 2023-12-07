@@ -12,7 +12,7 @@ function promptUser() {
     // Prompt for text color
     {
       type: 'input',
-      name: 'color',
+      name: 'textColor',
       message: 'Enter the text color (e.g., red, blue, #FF0000):',
     },
     // Prompt for shape choice
@@ -22,13 +22,20 @@ function promptUser() {
       message: 'Choose a shape:',
       choices: ['Triangle', 'Circle', 'Square'],
     },
+    // Prompt for shape color
+    {
+      type: 'input',
+      name: 'shapeColor',
+      message: 'Enter the shape color (e.g., red, blue, #FF0000):',
+    },
   ]);
 }
 
 promptUser()
   .then((answers) => {
-    const logo = logoGenerator.generateLogo(answers.text, answers.color, answers.shape);
+    const logo = logoGenerator.generateLogo(answers.text, answers.textColor, answers.shape, answers.shapeColor);
     logoGenerator.saveLogoToFile(logo);
+    console.log('Generated logo.svg');
   })
   .catch((error) => {
     console.error('An error occurred while prompting for user input:', error);
