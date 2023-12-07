@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const logoGenerator = require('./lib/logoGenerator');
+const { generateLogo, saveLogoToFile } = require('./lib/logoGenerator');
 
 function promptUser() {
   return inquirer.prompt([
@@ -31,12 +31,17 @@ function promptUser() {
   ]);
 }
 
-promptUser()
-  .then((answers) => {
-    const logo = logoGenerator.generateLogo(answers.text, answers.textColor, answers.shape, answers.shapeColor);
-    logoGenerator.saveLogoToFile(logo);
-    console.log('Generated logo.svg');
-  })
-  .catch((error) => {
-    console.error('An error occurred while prompting for user input:', error);
-  });
+function generateAndSaveLogo() {
+  promptUser()
+    .then((answers) => {
+      const { text, textColor, shape, shapeColor } = answers;
+      const logo = generateLogo(text, textColor, shape, shapeColor);
+      saveLogoToFile(logo);
+      console.log('Generated logo.svg');
+    })
+    .catch((error) => {
+      console.error('An error occurred while prompting for user input:', error);
+    });
+}
+
+generateAndSaveLogo();
